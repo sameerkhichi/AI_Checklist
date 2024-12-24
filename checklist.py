@@ -1,7 +1,7 @@
 #this document is overcommented for learning purposes
 #This is the import statement for the Flask app that allows me to build the web application
 import sqlite3
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, jsonify, render_template, redirect, url_for
 
 #the  __name__ operator is a special variable in python
 #it stores the name of the file that is currently being executed
@@ -28,7 +28,6 @@ def initialize_database():
 #This essentailly starts the database
 initialize_database()
 
-
 #this root is called to add a task when the user interacts with the root URL
 @checklist.route('/add_task', methods = ['POST'])
 def add_task():
@@ -49,9 +48,11 @@ def add_task():
         #closing the connection to the database
         connection.commit()
         connection.close()
-
-        return jsonify({"message": "Added the task to the list!"}), 201
-    return jsonify({"error": "A task is required to add something to the list"}), 400
+        
+        #redirect user to home root after adding a task instead of using a json return
+        #url_for is the url for the function provided, and redirect takes user there
+        return redirect(url_for('web_interface')) #hardcode - redirect('/')
+    return redirect(url_for('web_interface'))
         
 
 #this route will delete the task from the list
