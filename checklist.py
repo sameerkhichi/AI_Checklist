@@ -32,9 +32,12 @@ initialize_database()
 #this root is called to add a task when the user interacts with the root URL
 @checklist.route('/add_task', methods = ['POST'])
 def add_task():
-    data = request.json #fetching the information from the request 
+    #data = request.json #fetching the information from the request 
     #this will get the data from task
-    task = data.get('task')
+    #task = data.get('task')
+
+    #instead of getting data of type json getting it in the form for HTML
+    task = request.form.get('task')
 
     if task: #if there was a task provided then add it to the temporary storage
         
@@ -106,7 +109,7 @@ def web_interface():
 
     connection.close()
 
-    #linked to the file where the html code is stored
+    #linked to the file where the html code is stored 
     return render_template("web_interface.html", tasks = tasks)
 
 
