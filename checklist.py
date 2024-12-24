@@ -1,7 +1,7 @@
 #this document is overcommented for learning purposes
 #This is the import statement for the Flask app that allows me to build the web application
 import sqlite3
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 
 #the  __name__ operator is a special variable in python
 #it stores the name of the file that is currently being executed
@@ -25,6 +25,7 @@ def initialize_database():
     connection.commit()
     connection.close()
 
+#This essentailly starts the database
 initialize_database()
 
 
@@ -38,7 +39,7 @@ def add_task():
     if task: #if there was a task provided then add it to the temporary storage
         
         connection = sqlite3.connect("checklist.db")
-        cursor = connection.cursor()
+        cursor = connection.cursor() #cursors are objects used to fetch results from databases
 
         cursor.execute("INSERT INTO tasks (task) VALUES (?)", (task,))
 
@@ -83,11 +84,32 @@ def read_task():
 
     #grab all the tasks from the database file
     cursor.execute("SELECT * FROM tasks")
+
+    #note that fetchall returns a list where each element has an ID, these are all rows of the database
+    #row[0] gets the id column and row[1] gets the tasks column
     tasks = [{"id": row[0], "task": row[1]} for row in cursor.fetchall()]
 
     connection.close()
 
     return jsonify({"tasks":tasks})
+
+#making a route for the front end part of the webpage 
+# / makes it so it triggers as soon as someone visits the base URL
+@checklist.route('/')
+def web_interface():
+
+    connection = sqlite3.connect("checklist.db")
+    cursor = connection.cursor()
+
+    cursor.execute("SELECT * FROM tasks")
+    tasks = [{"id": row[0], "task": row[1]} for row in cursor.fetchall()]
+
+    connection.close()
+
+    #linked to the file where the html code is stored
+    return render_template("web_interface.html", tasks = tasks)
+
+
 
 
 if __name__ == '__main__':
