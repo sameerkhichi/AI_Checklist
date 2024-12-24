@@ -25,10 +25,17 @@
 
     <!--This body is to make a button to add a task-->
     <form action = "/add_task" method = "post">
-        <!--this makes a text box which is a required field to enter to continue-->
-        <input type = "text" name = "task" placeholder = "Enter a new task" required>
+        <!--this makes a text box to enter the task you want to enter-->
+        <input type = "text" name = "task" placeholder = "Enter a new task">
         <button type = "submit">
             Add Task
+        </button>
+    </form>
+
+    <form action = "/delete_task" method = "post">
+        <input type = "text" name = "task_id" placeholder="Enter the task number">
+        <button type = "submit">
+            Delete task
         </button>
     </form>
 </body>

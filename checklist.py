@@ -56,12 +56,15 @@ def add_task():
         
 
 #this route will delete the task from the list
-@checklist.route('/delete_task', methods = ['DELETE'])
+@checklist.route('/delete_task', methods = ['POST'])
 def delete_task():
 
     #fetch the data of the task in question 
-    data = request.json
-    task_id = data.get('id')
+    #data = request.json
+    #task_id = data.get('id')
+
+    #getting the task ID in the form for HTML
+    task_id = request.form.get("task_id")
 
     #remove the task based off of its id
     if task_id:
@@ -74,10 +77,9 @@ def delete_task():
         connection.commit()
         connection.close()
         
-        return jsonify({"message": "Deleted the task"}), 200
-    
-    #incase the task is not in the current list, print and error message.
-    return jsonify({"error": "A task is required to remove something to the list"}), 404
+        #redirecting to the home root
+        return redirect(url_for('web_interface'))
+    return redirect(url_for('web_interface'))
 
 #this route just gets the tasks using the HTTP method GET
 @checklist.route('/read_task', methods = ['GET'])
