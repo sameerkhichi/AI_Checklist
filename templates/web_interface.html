@@ -39,5 +39,13 @@
             Delete task
         </button>
     </form>
+
+    <!--Adding a textbox to give a general request to the AI model to generate tasks automatically-->
+    <form action = "/generate_tasks" method = "post">
+        <input type = "text" name = "general_request" placeholder="Enter a prompt">
+        <button type = "submit">
+            Generate tasks
+        </button>
+    </form>
 </body>
 </html>

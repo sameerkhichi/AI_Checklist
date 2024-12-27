@@ -83,7 +83,7 @@ def generate_tasks():
     general_request = request.form.get('general_request')
 
     response = openai.ChatCompletion.create(
-        model = "gpt-3.5-turbo"
+        model = "gpt-3.5-turbo",
         
         #initializing the model, its role and what it has to do
         messages = [
