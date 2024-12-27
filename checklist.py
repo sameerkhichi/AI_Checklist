@@ -25,6 +25,27 @@ def initialize_database():
     connection.commit()
     connection.close()
 
+#a function to reorder the tags of the ids to make them countable
+def reorder_id_tags():
+    
+    connection = sqlite3.connect("checklist.db")
+    cursor = connection.cursor()
+
+    #getting all the tasks as a tuple from the database
+    cursor.execute("SELECT id, task FROM tasks ORDER BY id")
+    tasks = cursor.fetchall()
+
+
+    dynamic_id = 1
+
+    for set_id, task in tasks:
+        #replaces the old id with a new one counting starting from one
+        cursor.execute("UPDATE tasks SET id = ? WHERE id = ?", (dynamic_id, set_id))
+        dynamic_id += 1
+    
+    connection.commit()
+    connection.close()
+
 #This essentailly starts the database
 initialize_database()
 
@@ -76,6 +97,9 @@ def delete_task():
 
         connection.commit()
         connection.close()
+
+        #reorder the tags after having deleted something
+        reorder_id_tags()
         
         #redirecting to the home root
         return redirect(url_for('web_interface'))
