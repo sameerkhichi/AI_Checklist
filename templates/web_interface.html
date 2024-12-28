@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+    <!--basic setup process-->
     <meta charset="UTF-8">
     <meta name = "viewport" content = "width = device-width, initial-scale=1.0">
     <title>
@@ -9,12 +10,15 @@
     </title>
 </head>
 
+<!--holds the body of the webpage-->>
 <body>
 
+    <!--This is the title of the application, this is a type header-->
     <h1>
         checklist+
     </h1>
 
+    <!--This is to display all the tasks currently in the list of tasks, done using a for loop-->
     <ul>
         {% for task in tasks %}
             <li>

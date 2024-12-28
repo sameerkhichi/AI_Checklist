@@ -1,7 +1,10 @@
 #this document is overcommented for learning purposes
 #This is the import statement for the Flask app that allows me to build the web application
+#note that a migration tool was used to update the openAI model version.
 import os
-import openai
+from openai import OpenAI
+
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 from dotenv import load_dotenv
 import sqlite3
 from flask import Flask, request, jsonify, render_template, redirect, url_for
@@ -10,7 +13,6 @@ from flask import Flask, request, jsonify, render_template, redirect, url_for
 load_dotenv()
 
 #declaring the environment variable
-openai.api_key = os.getenv("OPENAI_API_KEY")
 
 #the  __name__ operator is a special variable in python
 #it stores the name of the file that is currently being executed
@@ -36,7 +38,7 @@ def initialize_database():
 
 #a function to reorder the tags of the ids to make them countable
 def reorder_id_tags():
-    
+
     connection = sqlite3.connect("checklist.db")
     cursor = connection.cursor()
 
@@ -52,7 +54,7 @@ def reorder_id_tags():
         #replaces the old id with a new one counting starting from one
         cursor.execute("UPDATE tasks SET id = ? WHERE id = ?", (dynamic_id, set_id))
         dynamic_id += 1
-    
+
     connection.commit()
     connection.close()
 
@@ -70,30 +72,28 @@ def inserting_to_database(task):
     #if there is a task then add it to the database
     if task:
         cursor.execute("INSERT INTO tasks (task) VALUES (?)", (task,))
-            
+
     #commit and close the connection to the database
     connection.commit()
     connection.close()
 
-    
+
 #an endpoint to create tasks with a general prompt
 @checklist.route('/generate_tasks', methods = ['POST'])
 def generate_tasks():
 
     general_request = request.form.get('general_request')
 
-    response = openai.ChatCompletion.create(
-        model = "gpt-3.5-turbo",
-        
-        #initializing the model, its role and what it has to do
-        messages = [
-            {"role": "system", "content": "you are a values assistant tasked with creating meaningful tasks to add to a to-do list based on a user request."},
-            {"role": "user", "content": f"Generate a meaningful list of tasks based on this request seperate them using new line characters: {general_request}"}
-        ]
-    )
+    response = client.chat.completions.create(model = "gpt-3.5-turbo",
+    
+    #initializing the model, its role and what it has to do
+    messages = [
+        {"role": "system", "content": "you are a values assistant tasked with creating meaningful tasks to add to a to-do list based on a user request."},
+        {"role": "user", "content": f"Generate a meaningful list of tasks based on this request seperate them using new line characters: {general_request}"}
+    ])
 
     #extracts the response by using the content in the first index of the choices given in the object returned by the model
-    model_response = response["choices"][0]["message"]["content"]
+    model_response = response.choices[0].message.content
 
     #the tasks are given in the response seperated by new line characters
     tasks = model_response.split("\n")
@@ -118,7 +118,7 @@ def add_task():
     #redirect user to home root after adding a task instead of using a json return
     #url_for is the url for the function provided, and redirect takes user there
     return redirect(url_for('web_interface')) #hardcode = redirect('/')
-        
+
 
 #this route will delete the task from the list
 @checklist.route('/delete_task', methods = ['POST'])
@@ -144,7 +144,7 @@ def delete_task():
 
         #reorder the tags after having deleted something
         reorder_id_tags()
-        
+
         #redirecting to the home root
         return redirect(url_for('web_interface'))
     return redirect(url_for('web_interface'))
