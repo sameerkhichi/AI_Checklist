@@ -3,8 +3,6 @@
 #note that a migration tool was used to update the openAI model version.
 import os
 from openai import OpenAI
-
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 from dotenv import load_dotenv
 import sqlite3
 from flask import Flask, request, jsonify, render_template, redirect, url_for
@@ -13,6 +11,7 @@ from flask import Flask, request, jsonify, render_template, redirect, url_for
 load_dotenv()
 
 #declaring the environment variable
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 #the  __name__ operator is a special variable in python
 #it stores the name of the file that is currently being executed
