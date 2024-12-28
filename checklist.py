@@ -112,7 +112,9 @@ def add_task():
     #instead of getting data of type json getting it in the form for HTML
     task = request.form.get('task')
 
+    #making sure the tags are correctly assigned after adding the task
     inserting_to_database(task)
+    reorder_id_tags()
 
     #redirect user to home root after adding a task instead of using a json return
     #url_for is the url for the function provided, and redirect takes user there
