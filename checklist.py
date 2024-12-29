@@ -88,7 +88,7 @@ def generate_tasks():
     #initializing the model, its role and what it has to do
     messages = [
         {"role": "system", "content": "you are tasked with creating meaningful tasks for a to-do list."},
-        {"role": "user", "content": f"Generate a meaningful list of tasks separate with new line characters: {general_request}"}
+        {"role": "user", "content": f"Generate a four to five meaningful tasks separate with new line characters: {general_request}"}
     ])
 
     #extracts the response by using the content in the first index of the choices given in the object returned by the model
