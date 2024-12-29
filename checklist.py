@@ -57,7 +57,7 @@ def reorder_id_tags():
     connection.commit()
     connection.close()
 
-#This essentailly starts the database
+#This essentially starts the database
 initialize_database()
 
 #this function is made for code simplicity
@@ -83,18 +83,18 @@ def generate_tasks():
 
     general_request = request.form.get('general_request')
 
-    response = client.chat.completions.create(model = "gpt-3.5-turbo",
+    response = client.chat.completions.create(model = "gpt-4o-mini",
     
     #initializing the model, its role and what it has to do
     messages = [
-        {"role": "system", "content": "you are a values assistant tasked with creating meaningful tasks to add to a to-do list based on a user request."},
-        {"role": "user", "content": f"Generate a meaningful list of tasks based on this request seperate them using new line characters: {general_request}"}
+        {"role": "system", "content": "you are tasked with creating meaningful tasks for a to-do list."},
+        {"role": "user", "content": f"Generate a meaningful list of tasks separate with new line characters: {general_request}"}
     ])
 
     #extracts the response by using the content in the first index of the choices given in the object returned by the model
     model_response = response.choices[0].message.content
 
-    #the tasks are given in the response seperated by new line characters
+    #the tasks are given in the response separated by new line characters
     tasks = model_response.split("\n")
 
     for task in tasks: #insert tasks given by the model to the database
