@@ -99,6 +99,7 @@ def generate_tasks():
 
     for task in tasks: #insert tasks given by the model to the database
         inserting_to_database(task)
+        reorder_id_tags() #reorder the tags for each task that is added
 
     return redirect(url_for('web_interface'))
 
