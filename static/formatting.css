@@ -1,14 +1,44 @@
 body{
     font: Helvetica;
-    font-size: 20;
+    font-size: 20px;
+    color: white;
     background-color: grey;
+    align-items: center;
+}
+
+h1{
+    text-align: center;
+    margin: 20px 0;
 }
 
 button{
-    background-color: lightslategray;
+    background-color: grey;
+    color: white;
     border: none;
+
+    /*making the buttons round
+    adding padding between them to reduce clustering
+    */
+
+    border-radius: 20px;
+    padding: 10px 20px;
+
+    /*this adds a hover effect to the background color*/
+    transition: background-color 0.2 ease;
 }
 
 button:hover{
-    background-color: grey;
+    background-color: darkgray;
+}
+
+ul{
+    color: white;
+    list-style-type: circle;
+    text-align: left;
+}
+
+ul li{
+    /*aligning all content in the list to the centre*/
+    align-items: center;
+    justify-content: center;
 }

@@ -18,11 +18,15 @@
 <body>
 
     <!--This is the title of the application, this is a type header-->
+    <center>
     <h1>
         checklist+
     </h1>
+    </center>
 
     <!--This is to display all the tasks currently in the list of tasks, done using a for loop-->
+    <!--ul=unordered list, li=list item-->
+    <center>
     <ul>
         {% for task in tasks %}
             <li>
@@ -30,6 +34,7 @@
             </li>
         {% endfor %}
     </ul>
+    </center>
 
     <!--This body is to make a button to add a task-->
     <form action = "/add_task" method = "post">

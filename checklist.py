@@ -1,4 +1,4 @@
-#this document is over-commented for learning purposes
+#all files will be over-commented for learning purposes
 #This is the import statement for the Flask app that allows me to build the web application
 #note that a migration tool was used to update the openAI model version.
 import os
@@ -88,7 +88,7 @@ def generate_tasks():
     #initializing the model, its role and what it has to do
     messages = [
         {"role": "system", "content": "you are tasked with creating meaningful tasks for a to-do list."},
-        {"role": "user", "content": f"Generate a four to five or less if possible meaningful tasks separate with new line characters: {general_request}"}
+        {"role": "user", "content": f"Generate at maximum four preferably less meaningful tasks, dont start any item with a list character, separate with new line characters: {general_request}"}
     ])
 
     #extracts the response by using the content in the first index of the choices given in the object returned by the model
@@ -186,10 +186,8 @@ def web_interface():
     return render_template("web_interface.html", tasks = tasks)
 
 
-
-
 if __name__ == '__main__':
     checklist.run(debug=True) #flask development server, listens for request from URL
 
 
-#This file creates a localhost or local server 
+#This file creates a localhost or local server
