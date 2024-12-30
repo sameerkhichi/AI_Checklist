@@ -169,6 +169,28 @@ def read_task():
 
     return jsonify({"tasks":tasks})
 
+#a route made to clear all the tasks from the list by id
+@checklist.route('/clear_all', methods = ['POST'])
+def clear_all():
+
+    connection = sqlite3.connect("checklist.db")
+    cursor = connection.cursor()
+
+    #getting all the id's and tasks in id order
+    cursor.execute("SELECT id, task FROM tasks ORDER BY id")
+    #getting all the tesks from the database
+    tasks = cursor.fetchall()
+
+    #each task is deleted by id
+    #task is added in the for loop to support tuple data type
+    for this_id, task in tasks:
+        cursor.execute("DELETE FROM tasks WHERE id = ?",(this_id,))
+    
+    connection.commit()
+    connection.close()
+    
+    return redirect(url_for('web_interface'))
+
 #making a route for the front end part of the webpage 
 # / makes it so it triggers as soon as someone visits the base URL
 @checklist.route('/')
