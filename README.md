@@ -3,6 +3,8 @@
 ## Description
 Checklist+ is a dynamic to-do list application powered by an AI model to automatically generate useful tasks based on user prompts. It features a SQLite database for task storage, a Python-powered backend for functionality, and an HTML-based user interface for seamless interaction.
 
+Soon to be published on AWS Lambda!
+
 ---
 
 ## Installation
