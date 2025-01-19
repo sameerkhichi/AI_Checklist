@@ -41,6 +41,7 @@
     </ul>
     </center>
 
+    <center>
     <!--This body is to make a button to add a task-->
     <form action = "/add_task" method = "post">
         <!--this makes a text box to enter the task you want to enter-->
@@ -49,6 +50,7 @@
             Add Task
         </button>
     </form>
+    </center>
 
     <!--Adding a textbox and button to remove a task from the list by id tag-->
     <!--commented out kept if needed for debugging-->
@@ -61,6 +63,7 @@
     </form>
     -->
 
+    <center>
     <!--Adding a textbox to give a general request to the AI model to generate tasks automatically-->
     <form action = "/generate_tasks" method = "post">
         <input type = "text" name = "general_request" placeholder="Enter a prompt">
@@ -68,12 +71,16 @@
             Generate tasks
         </button>
     </form>
+    </center>
 
+    <center>
     <!--creating the button to clear all tasks from the list by id-->
     <form action = "/clear_all" method = 'post'>
         <button type = "submit">
             Clear all tasks
         </button>
     </form>
+    </center>
+
 </body>
 </html>
