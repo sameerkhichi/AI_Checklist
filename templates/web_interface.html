@@ -31,9 +31,9 @@
         {% for task in tasks %}
             <li>
                 <!--adding a button before each task to remove it with a dynamically added id tag-->
-                <form action = "/delete_task" method = "post">
+                <form action = "/delete_task" method = "post" style="margin: 0;">
                     <input type="hidden" name = "task_id" value="{{task.id}}"> 
-                    <button type="submit"></button>
+                    <button type="submit" class="delete_button"></button>
                     {{task.task}} 
                 </form>
             </li>

@@ -27,6 +27,23 @@ button{
     transition: background-color 0.2 ease;
 }
 
+.delete_button{
+    background-color: white;
+    border: none;
+
+    border-radius: 50%;
+    width: 15px;
+    height: 15px;
+
+    /*adding ANY padding for some reason ruins the allignment of the button*/
+    padding: 0;
+
+
+    
+
+    transition: background-color 0.2 ease;
+}
+
 button:hover{
     background-color: darkgray;
 }
@@ -35,10 +52,22 @@ ul{
     color: white;
     list-style-type: none;
     text-align: left;
+    width: 50%; /*centers the items in the list to the centre*/
 }
 
 ul li{
+    display: flex;
     /*aligning all content in the list to the centre*/
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
+    background-color: rgba(255, 255, 255, 0.1);
+    margin-bottom: 10px;
+    border-radius: 10px;
+
+}
+
+ul li span {
+    flex-grow: 1; /* Makes the task text take up remaining space */
+    display: flex;
+    align-items: center; /* Vertically aligns the text */
 }
